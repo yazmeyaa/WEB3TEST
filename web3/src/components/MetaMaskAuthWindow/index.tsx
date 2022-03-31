@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {Container, Adress, GetAdressButton} from './styled'
-import Web3 from "web3";
+import { Maybe } from "@metamask/providers/dist/utils";
+
 
 const AdressComponent: React.FC = () => {
     const [metamaskAdress, setMetamaskAdress] = useState('')
@@ -9,17 +10,19 @@ const AdressComponent: React.FC = () => {
 
     }
 
-    async function connectMetaMask(setter: React.SetStateAction<string>) {
+    async function connectMetaMask() {
         if(!window.ethereum){
             alert('Metamask is not installed')
             return 
         }
         
-        const accounts:  = await window.ethereum.request({
+        const accounts: Maybe<Array<any>> = await window.ethereum.request({
             method: "eth_requestAccounts"
         })
 
-        setter(accounts[0])
+        if(accounts){
+            console.log(accounts[0])
+        }
     }
 
     function onAdressChanged(){
@@ -38,8 +41,7 @@ const AdressComponent: React.FC = () => {
                 {metamaskAdress}
             </Adress>
             <GetAdressButton onClick={()=>{
-                connectMetaMask() 
-                console.log('123')
+                connectMetaMask()
                 }}>
                 Metamask
             </GetAdressButton>
