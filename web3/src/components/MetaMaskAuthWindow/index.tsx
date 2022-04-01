@@ -16,12 +16,12 @@ const AdressComponent: React.FC = () => {
             return 
         }
         
-        const accounts: Maybe<Array<any>> = await window.ethereum.request({
+        const accounts = await window.ethereum.request({
             method: "eth_requestAccounts"
         })
 
-        if(accounts){
-            console.log(accounts[0])
+        if(Array.isArray(accounts) && accounts){
+            setMetamaskAdress(accounts[0])
         }
     }
 
@@ -38,7 +38,7 @@ const AdressComponent: React.FC = () => {
     return(
         <Container>
             <Adress>
-                {metamaskAdress}
+                {metamaskAdress && <span>{metamaskAdress}</span>}
             </Adress>
             <GetAdressButton onClick={()=>{
                 connectMetaMask()
