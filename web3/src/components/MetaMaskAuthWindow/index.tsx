@@ -1,5 +1,4 @@
-import { access } from "fs";
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {Container, Adress, GetAdressButton} from './styled'
 
 
@@ -37,10 +36,6 @@ const AdressComponent: React.FC = () => {
             </GetAdressButton>
         </Container>
     )
-}
-
-interface IAdresProps {
-    metamaskAdress: string
 }
 
 export {AdressComponent}
