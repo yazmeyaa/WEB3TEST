@@ -1,14 +1,10 @@
+import { access } from "fs";
 import React, {useState, useEffect} from "react";
 import {Container, Adress, GetAdressButton} from './styled'
-import { Maybe } from "@metamask/providers/dist/utils";
 
 
 const AdressComponent: React.FC = () => {
     const [metamaskAdress, setMetamaskAdress] = useState('')
-
-    function checkWalletIsConnected(){
-
-    }
 
     async function connectMetaMask() {
         if(!window.ethereum){
@@ -16,37 +12,35 @@ const AdressComponent: React.FC = () => {
             return 
         }
         
+        console.log('Metamask is installed. Waiting for acconts list.')
+
         const accounts = await window.ethereum.request({
             method: "eth_requestAccounts"
         })
+
 
         if(Array.isArray(accounts) && accounts){
             setMetamaskAdress(accounts[0])
         }
     }
 
-    function onAdressChanged(){
-
-    }
-
-    useEffect(checkWalletIsConnected,[
-
-    ])
-
-    useEffect(onAdressChanged, [metamaskAdress])
 
     return(
         <Container>
             <Adress>
-                {metamaskAdress && <span>{metamaskAdress}</span>}
+                {metamaskAdress ? metamaskAdress : 'MetaMask is locked - please login'}
             </Adress>
             <GetAdressButton onClick={()=>{
                 connectMetaMask()
                 }}>
-                Metamask
+                Get public key
             </GetAdressButton>
         </Container>
     )
+}
+
+interface IAdresProps {
+    metamaskAdress: string
 }
 
 export {AdressComponent}

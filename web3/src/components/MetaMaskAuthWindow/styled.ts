@@ -7,7 +7,6 @@ export const Container = styled.div`
         flex-direction: column;
         align-items: center;
         padding: 30px;
-        max-width: 60%;
         background-color: gray;
     }
 `
