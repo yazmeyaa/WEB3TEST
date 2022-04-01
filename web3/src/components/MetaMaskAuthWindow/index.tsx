@@ -10,13 +10,10 @@ const AdressComponent: React.FC = () => {
             alert('Metamask is not installed')
             return 
         }
-        
-        console.log('Metamask is installed. Waiting for acconts list.')
 
         const accounts = await window.ethereum.request({
             method: "eth_requestAccounts"
         })
-
 
         if(Array.isArray(accounts) && accounts){
             setMetamaskAdress(accounts[0])
